@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/05/21 19:01:49 by dchen            ###   ########.fr       */
+/*   Updated: 2019/05/21 21:34:45 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
@@ -75,8 +75,9 @@ piece	*read_file(const int fd)
 	char	*buf;
 	int		b_read;
 	int 	i;
-	piece	*pieceArr;
-	
+	piece	**pieceArr;
+
+	pieceArr = malloc(sizeof(piece) * 28);
 	id = 'A';
 	i = 0;
 	buf = ft_strnew(21);
@@ -88,7 +89,7 @@ piece	*read_file(const int fd)
 			i++;
 			id++;
 		}
-		if(check_valid_tetris(bff, b_read) == 0)
+		if(check_valid_tetris(buf, b_read) == 0)
 		{
 			i = id - 'A' + '0';
 			while (i >= 0)
@@ -96,9 +97,10 @@ piece	*read_file(const int fd)
 				free(pieceArr[i]);
 				i--;
 			}
+			free(pieceArr);
 		}
 	}
-	return (pieceArr);
+	return (*pieceArr);
 }
 
 int		main()
