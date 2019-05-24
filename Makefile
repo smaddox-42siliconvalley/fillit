@@ -1,6 +1,6 @@
 
 all : 
-	gcc fillit.h libft.a libft/libft.h main.c read.c ft_math.c
+	gcc  libft.a main.c read.c ft_math.c -I fillit.h libft/libft.h
 
 
 debug : 

@@ -1,7 +1,6 @@
 #include "fillit.h"
 
-/*
- * * Square root integer only implementation
+ //* * Square root integer only implementation
 
 int	ft_sqrt(int c)
 {
@@ -14,7 +13,7 @@ int	ft_sqrt(int c)
 		result = i * i;
 	}
 
-	return (result);
+	return (i);
 }
 
 int	coordinates_to_index(int x, int y, int width)
@@ -25,7 +24,7 @@ int	coordinates_to_index(int x, int y, int width)
 	return (i);
 }
 
- * * Flag indicates the return value 0 for x and 1 for y
+ //* * Flag indicates the return value 0 for x and 1 for y
 
 int	index_to_coordinates(int i, int width, int flag)
 {
@@ -44,9 +43,8 @@ int	index_to_coordinates(int i, int width, int flag)
 		y = i/width;
 		return (y);
 	}
-	return (NULL);
+	return (0);
 }
-*/
 
 void	translate(point one, point *two)
 {
@@ -69,6 +67,4 @@ void	reset(piece *pc)
 		translate(origin, ((pc->blocks) + i));
 	   	++i;	
 	}
-
-
 }

@@ -1,0 +1,38 @@
+#include "fillit.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+int		main(void)
+{
+	piece new;
+	point test;
+
+	test.x = 5;
+	test.y = 1;
+	new.blocks = (point *)malloc(4 * sizeof(point));
+	
+	new.blocks[0].x = 2;
+   	new.blocks[0].y = 1;
+	
+	new.blocks[1].x = 2;
+	new.blocks[1].y = 2;
+	
+	new.blocks[2].x = 2;
+	new.blocks[2].y = 3;
+	
+	new.blocks[3].x = 2;
+	new.blocks[3].y = 4;
+	
+	reset(&new);
+	
+	
+	int i = 0;
+	while ( i < 4)
+	{
+		translate(test, &new.blocks[i]);
+		printf("%d\n%d\n\n\n", new.blocks[i].x, new.blocks[i].y);
+		i++;
+	}
+	return (0);
+}	
+

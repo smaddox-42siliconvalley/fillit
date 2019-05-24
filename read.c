@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/05/21 21:34:45 by dchen            ###   ########.fr       */
+/*   Updated: 2019/05/21 22:53:05 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
@@ -37,7 +37,7 @@ int		check_valid_tetris(char	*str, int b_read)
 		i++;
 	}
 	if (b_read == 21 && str[20] != '\n')
-		return (0);
+		return (1);
 	return (1);
 }
 
@@ -89,7 +89,7 @@ piece	*read_file(const int fd)
 			i++;
 			id++;
 		}
-		if(check_valid_tetris(buf, b_read) == 0)
+		else if(check_valid_tetris(buf, b_read) == 0)
 		{
 			i = id - 'A' + '0';
 			while (i >= 0)
@@ -101,9 +101,4 @@ piece	*read_file(const int fd)
 		}
 	}
 	return (*pieceArr);
-}
-
-int		main()
-{
-	return (0);
 }
