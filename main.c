@@ -21,17 +21,22 @@ int main(int argc, char **argv)
 	int fd;
 	piece *arr;
 	column_o *master_co;
+	int i;
 	
 //	Read/Parse file	
 	fd = open(argv[1], O_RDONLY);
 	arr = read_file(fd, &num);
 	board.size = ft_sqrt((num * 4));
-
 //	Toroid construction
 	master_co = make_columns(arr, num, board.size);
-	//printf("%c\n", master_co->prev->next->colname.id);
 	link_list_headers(master_co);
-	translator(arr[0], board.size, master_co);
+	i = 0;
+	while(i < num)
+	{
+		translator(arr[i], board.size, master_co);
+		i++;
+	}
+	test_matrix(master_co);
 	return (0);
 }
 
@@ -42,17 +47,11 @@ void	translator(piece pc, int board_size, column_o *master_co)
 	int i;
 
 	y = 0;
-	swap((pc.blocks) + 1, (pc.blocks) + 2);
 	while((n = valid(pc, board_size)) != 2)
 	{
 		if (n == 0)
 		{
 			cell_linker(master_co, generate_row( ), pc);
-			printf("\n\n----------------------------\n");
-			print_index(pc, board_size);
-			printf("\n----------------------------\n\n");
-			test_matrix(master_co);
-			getchar();
 			move_piece(&pc, 0);
 		}
 		if (n == 1)
@@ -75,7 +74,7 @@ int valid(piece pc, int board_size)					//0 okay 1 move down 2 done
 	int j;
 
 	j = 0;
-	while (j < 3)
+	while (j < 4)
 	{
 		if (pc.blocks[j].x >= board_size)
 			return (1);

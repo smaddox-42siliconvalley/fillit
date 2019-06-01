@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/05/29 16:37:31 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/06/01 02:52:57 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
@@ -63,14 +63,15 @@ piece	get_piece(char *str, char id)
 	{
 		if(str[i] == '#') //removed the j == 0 
 		{
-			s_piece.blocks[j].x = i / 5;
+			s_piece.blocks[j].y = i / 5;								//I SWAPPED X AND Y VALUES!!!! BEFORE THE SWAP THEY WERE BACKWARDS
 	//		printf("(%d, ", s_piece.blocks[j].x); testing
-			s_piece.blocks[j].y = i % 5;
+			s_piece.blocks[j].x = i % 5;
 	//		printf("%d) ", s_piece.blocks[j].y);
 			j++;
 		}
 		i++;
 	}
+	reset(&s_piece);
 	return (s_piece);
 }
 piece	*read_file(const int fd, int *num_pieces)

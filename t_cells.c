@@ -77,21 +77,25 @@ void	test_matrix(column_o* master_co)
 	int i = 0;	
 	t_cell *current_cell;
 	current = master_co->next;
-	current_cell = current->list_header.D;
-	while(current_cell->a != 1)
+	while(current->union_type == 0)
 	{
-		i = 0;
-		while(i<5)
+		current_cell = current->list_header.D;
+		while(current_cell->a != 1)
 		{
-			if (current_cell->C->union_type == 0)
-				printf("%c " ,current_cell->C->colname.id);
-			if (current_cell->C->union_type == 1)
-				printf("%d " ,current_cell->C->colname.row_num);
-			current_cell = current_cell->R;
-			++i;
+			i = 0;
+			while(i<5)
+			{
+				if (current_cell->C->union_type == 0)
+					printf("%c " ,current_cell->C->colname.id);
+				if (current_cell->C->union_type == 1)
+					printf("%d " ,current_cell->C->colname.row_num);
+				current_cell = current_cell->R;
+				++i;
+			}
+			current_cell = current_cell->D;
+			printf("\n");
 		}
-		current_cell = current_cell->D;
-		getchar();
+		current = current->next;
 	}
 }
 
