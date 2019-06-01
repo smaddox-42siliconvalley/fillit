@@ -6,12 +6,13 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/05/21 22:53:05 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/05/29 16:37:31 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
 #include "libft/libft.h"
 #include <stdlib.h>
+#include <stdio.h>
 
 // checks if tetris is valid
 int		check_valid_tetris(char	*str, int b_read)
@@ -43,53 +44,54 @@ int		check_valid_tetris(char	*str, int b_read)
 
 
 // gets coords for each blocks
-piece	*get_piece(char *str, char id)
+piece	get_piece(char *str, char id)
 {
-	piece	*s_piece;
-	point	*blocks;
+	piece	s_piece;
+//	point	*blocks;  don't think this is needed
 	int		i;
 	int		j;
 	
-	if(!(s_piece = malloc(sizeof(piece))))
-		return (NULL);
-	if(!(blocks = malloc(sizeof(point) * 4)))
-		return (NULL);
+//	if(!(s_piece = (piecemalloc(sizeof(piece))))
+//		return (NULL);
+	s_piece.blocks = (point *)malloc(sizeof(point) * 4);
+
 	i = 0;
 	j = 0;
-	s_piece->id = id;
+	s_piece.id = id;
+	//s_piece.placed = 0;
 	while (i < 20)
 	{
-		if(str[i] == '#' && j == 0)
+		if(str[i] == '#') //removed the j == 0 
 		{
-			s_piece->blocks[j].x = i / 5;
-			s_piece->blocks[j].y = i % 5;
+			s_piece.blocks[j].x = i / 5;
+	//		printf("(%d, ", s_piece.blocks[j].x); testing
+			s_piece.blocks[j].y = i % 5;
+	//		printf("%d) ", s_piece.blocks[j].y);
 			j++;
 		}
 		i++;
 	}
 	return (s_piece);
 }
-piece	*read_file(const int fd)
+piece	*read_file(const int fd, int *num_pieces)
 {
 	char 	id;
 	char	*buf;
 	int		b_read;
 	int 	i;
-	piece	**pieceArr;
+	piece	*pieceArr;
 
-	pieceArr = malloc(sizeof(piece) * 28);
+	pieceArr = (piece *)malloc(sizeof(piece) * 28);
 	id = 'A';
 	i = 0;
 	buf = ft_strnew(21);
 	while ((b_read = read(fd, buf, 21)) >= 20)
 	{
-		if(check_valid_tetris(buf, b_read) == 1)
-		{
-			pieceArr[i] = get_piece(buf, id);
-			i++;
-			id++;
-		}
-		else if(check_valid_tetris(buf, b_read) == 0)
+		pieceArr[i] = get_piece(buf, id);
+		i++;
+		id++;
+
+/*		else if(check_valid_tetris(buf, b_read) == 0)
 		{
 			i = id - 'A' + '0';
 			while (i >= 0)
@@ -99,6 +101,7 @@ piece	*read_file(const int fd)
 			}
 			free(pieceArr);
 		}
-	}
-	return (*pieceArr);
+*/	} //for testing purposes only. this funct just frees everything.
+	*num_pieces = id - 'A';
+	return (pieceArr);
 }

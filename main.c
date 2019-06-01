@@ -1,14 +1,16 @@
 #include "libft/libft.h"
 #include <stdlib.h>
+#include <unistd.h>
 #include <stdio.h>
 #include <fcntl.h>
 #include "fillit.h"
 
 piece *make_piece_arr(int i);
-void print_pieces(piece *arr, int size);
+void print_piece(piece pc);
 void move_piece(piece *pc, int direction);
-int	try_fit(piece *arr, char id, int size, int board_size);
-int	validate_move(piece selected, piece *arr, int arrsize, int board_size );
+int	valid(piece pc, int board_size);
+void translator(piece pc, int board_size, column_o *master_co);
+void swap(point *a, point *b);
 
 int main(int argc, char **argv)
 {
@@ -16,70 +18,74 @@ int main(int argc, char **argv)
 	int num;
 	int valid;
 	int j;
-	num = atoi(argv[1]);
-	//board.size = ft_sqrt((num * 4));
-	board.size = 10;
-	
+	int fd;
 	piece *arr;
-   	arr = make_piece_arr(num);
-
-/*	arr[1].blocks[0].x = 1;
-	arr[1].blocks[1].x = 1;
-	arr[1].blocks[2].x = 1;
-	arr[1].blocks[3].x = 1;
-*/
-	arr[1].blocks[0].y = 0;
-	arr[1].blocks[1].y = 1;
-	arr[1].blocks[2].y = 2;
-	arr[1].blocks[3].y = 3;
-
-	arr[0].blocks[0].y = 0;
-	arr[0].blocks[1].y = 1;
-	arr[0].blocks[2].y = 2;
-	arr[0].blocks[3].y = 3;
-
-
+	column_o *master_co;
 	
-	arr[0].placed = 1;
-	arr[1].placed = 1;
+//	Read/Parse file	
+	fd = open(argv[1], O_RDONLY);
+	arr = read_file(fd, &num);
+	board.size = ft_sqrt((num * 4));
 
-	try_fit(arr, arr[1].id, num, board.size);
-	print_pieces(arr, num);
+//	Toroid construction
+	master_co = make_columns(arr, num, board.size);
+	//printf("%c\n", master_co->prev->next->colname.id);
+	link_list_headers(master_co);
+	translator(arr[0], board.size, master_co);
 	return (0);
 }
 
-
-int	try_fit(piece *arr, char id, int size, int board_size)
+void	translator(piece pc, int board_size, column_o *master_co)
 {
-	int x;
+	int n;
 	int y;
-	int valid;
-	piece *working;
+	int i;
 
-	working = &arr[id - 'A'];
 	y = 0;
-	working->placed = 1;
-	while ( y < board_size )
+	swap((pc.blocks) + 1, (pc.blocks) + 2);
+	while((n = valid(pc, board_size)) != 2)
 	{
-		x = 0;
-		while ( x < board_size )
+		if (n == 0)
 		{
-			if (!(valid = validate_move(*working, arr, size, board_size)))
-				move_piece(working, 0); //move it right
-			else
-			{
-				return (1);
-			}
-			++x;
+			cell_linker(master_co, generate_row( ), pc);
+			printf("\n\n----------------------------\n");
+			print_index(pc, board_size);
+			printf("\n----------------------------\n\n");
+			test_matrix(master_co);
+			getchar();
+			move_piece(&pc, 0);
 		}
-		reset(working);
-		move_piece(working, 1);
-		++y;
+		if (n == 1)
+		{
+			i = 0;
+			y++;
+			reset(&pc);
+			while(i < y)
+			{	
+				move_piece(&pc, 1);
+				i++;
+			}
+		}
 	}
-	reset(working);
-	working->placed = 0;
+}
+
+
+int valid(piece pc, int board_size)					//0 okay 1 move down 2 done
+{
+	int j;
+
+	j = 0;
+	while (j < 3)
+	{
+		if (pc.blocks[j].x >= board_size)
+			return (1);
+		if (pc.blocks[j].y >= board_size)
+			return (2);
+		++j;
+	}
 	return (0);
 }
+
 
 
 void move_piece(piece *pc, int direction)
@@ -106,83 +112,42 @@ void move_piece(piece *pc, int direction)
 	}
 }
 
-
-int		validate_move(piece selected, piece *arr, int arrsize, int board_size )
+void	print_index(piece pc, int size)
 {
-	int i;
-	int j;
-
-	i = 0;
-	while (i < arrsize)
-	{
-		if (selected.id != arr[i].id)
-		{
-			j = 0;
-			while ( j < 4 )
-			{
-				if (selected.blocks[j].x >= board_size)
-					return (0);
-				if (selected.blocks[j].y >= board_size)
-					return (0);
-				if (selected.blocks[j].x == arr[i].blocks[j].x)
-					if (selected.blocks[j].y == arr[i].blocks[j].y)
-						return (0);
-				++j;
-			}
-		}
-		++i;
-	}
-	return(1);
-}	
-
-piece *make_piece_arr(int size)
-{
-	piece *arr;
-	int i = 0;
 	int j = 0;
-	char id = 'A';
-	
-
-	arr = (piece*)malloc(size * sizeof(piece));
-
-	while ( i < size )
+	printf("Index:\n");
+	while(j<4)
 	{
-		arr[i].blocks = (point*)malloc(4 * sizeof(point));
-		arr[i].id = id++;
-		arr[i].placed = 0;
-		j = 0;
-		while (j < 4 )
-		{
-			arr[i].blocks[j].x = 0;
-			arr[i].blocks[j].y = 0;
-			++j;
-		}
-		++i;
+		printf("%d ", coordinates_to_index(pc.blocks[j].x, pc.blocks[j].y, size));
+		++j;
 	}
-	return (arr);
+	printf("\n\n");
 }
-
-
-void print_pieces(piece *arr, int size)
-{
-	int i = 0;
-	int j = 0;
-
-	while ( i < size )
-	{
-		printf("ID: %c\nPLACED: %d\nCoordinates: ",arr[i].id, arr[i].placed);
-		j = 0;
-		while ( j < 4 )
-		{
-			printf("(%d , %d) ", arr[i].blocks[j].x, arr[i].blocks[j].y);
-			++j;
-		}
-		printf("\n\n");
-		++i;
-	}
-
 		
-//	arr[0].blocks[0].x = 2;
-//	arr[0].blocks[0].y = 1;
+void print_piece(piece pc)
+{
+	int j = 0;
 
+	printf("ID: %c\nCoordinates: ", pc.id);
+	while ( j < 4 )
+	{
+		printf("(%d , %d) ", pc.blocks[j].x, pc.blocks[j].y);
+		++j;
+	}
+		printf("\n\n");
+		
 }
+
+void swap(point *a, point *b)
+{
+	point temp;
+	temp = *a;
+	*a = *b;
+	*b = temp;
+}
+
+
+
+//testing functs down here
+//	print_nodes(master_co); //testing funct for column headers
+//	print_list_header(&(master_co->list_header));

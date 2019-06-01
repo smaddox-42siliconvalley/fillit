@@ -13,7 +13,7 @@ int	ft_sqrt(int c)
 		result = i * i;
 	}
 
-	return (i);
+	return (i-1);
 }
 
 int	coordinates_to_index(int x, int y, int width)
@@ -21,7 +21,7 @@ int	coordinates_to_index(int x, int y, int width)
 	int i;
 
 	i = x + (y * width);
-	return (i);
+	return (i+1); //+1 to offset the fact that everything starts at fucking 0
 }
 
  //* * Flag indicates the return value 0 for x and 1 for y
