@@ -6,13 +6,10 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/01 02:52:57 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/06/03 00:06:45 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
-#include "libft/libft.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 // checks if tetris is valid
 int		check_valid_tetris(char	*str, int b_read)
