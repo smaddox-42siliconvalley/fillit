@@ -140,5 +140,14 @@ void			uncover_row(t_cell *node);
  */
 int				solver(column_o *master, piece *arr);
 void			choice_helper(t_cell *choice, piece *arr);
+
+/*
+ * *	Printing Board
+ */
+
+void	fill_board(piece *arr, int num, int board_size, char **board);
+void	print_board(char **board, int board_size, int num);
+char	**create_board(int board_size, int num);
+void	free_board(char **board, int board_size);
 #endif
 

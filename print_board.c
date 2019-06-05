@@ -6,18 +6,18 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:50:39 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/04 20:33:54 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/04 22:25:23 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	print_board(piece *arr, int num, int board_size, char **board)
+void	fill_board(piece *arr, int num, int board_size, char **board)
 {
 	char	cur;
 	int		i;
 	int		j;
-
+	
 	i = 0;
 	cur = 'A';
 	while (i < num)
@@ -45,6 +45,12 @@ char	**create_board(int board_size, int num)
 	i = 0;
 	while (i < board_size)
 	{
+		board[i] = (char*)malloc(sizeof(char) * board_size + 1);
+		i++;
+	}
+	i = 0;
+	while (i < board_size)
+	{
 		j = 0;
 		while (j < board_size)
 		{
@@ -68,4 +74,25 @@ void	free_board(char **board, int board_size)
 		i++;
 	}
 	ft_memdel((void **)&board);
+}
+
+void	print_board(char **board, int board_size, int num)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < board_size)
+	{
+		j = 0;
+		while (j < board_size)
+		{
+			write(1,&board[i][j],1);
+			j++;
+		}
+		write(1,"\n",1);
+		//board[i][j] = '\0';
+		i++;
+	}
+	return ;
 }
