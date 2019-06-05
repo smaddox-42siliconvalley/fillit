@@ -8,6 +8,7 @@ int		main(int argc, char **argv)
 	int				n;
 	piece			*piece_arr;
 	column_o		*master_co;
+	char			**boards;
 
 	if (argc == 2)
 	{
@@ -25,7 +26,8 @@ int		main(int argc, char **argv)
 	else
 		ft_putstr("usage: ./fillit file\n");
 	n = -1;
-	while (++n < num)
-		print_piece(piece_arr[n]);
+	boards = create_board(board.size, num);
+	fill_board(piece_arr, num, board.size, boards);
+	free_board(boards, board.size);
 	return (0);
 }
