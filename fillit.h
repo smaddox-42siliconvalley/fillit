@@ -10,6 +10,12 @@
 struct column_object;
 typedef struct column_object column_o;
 
+struct							board
+{
+	int							size;
+	char						*str;
+};
+
 typedef struct		POINT
 {
 	int				x;
@@ -50,7 +56,7 @@ typedef struct		column_object
  */
 
 column_o			*make_columns_part_one(piece *arr, int size, int board_size);
-column_o			*part_deux(column_o *master_co, column_o *current, int board_size);
+void				part_deux(column_o *master_co, column_o *current, int board_size);
 void				link_list_header(column_o *master_co);
 
 /*
@@ -98,6 +104,7 @@ void				print_index(piece pc, int size);
 void				print_piece(piece pc);
 void				print_matrix(column_o *master_co);
 void				print_columns(column_o *column);
+void				print_choice(t_cell *choice);
 /*
  * *	read functions
  */
@@ -112,5 +119,26 @@ piece				*read_file(const int fd, int *num_pieces);
 
 void			cleanup(column_o *master_co);
 
+/*
+ * *	coverings
+ */
+
+void			cover_choice(t_cell *choice);
+void			cover_column(column_o *column);
+void			cover_rows(t_cell *node);
+
+/*
+ * *	uncoverings
+ */
+
+void			uncover_choice(t_cell *choice);
+void			uncover_column(column_o *column);
+void			uncover_row(t_cell *node);
+
+/*
+ * *	solver
+ */
+int				solver(column_o *master, piece *arr);
+void			choice_helper(t_cell *choice, piece *arr);
 #endif
 

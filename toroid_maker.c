@@ -24,6 +24,7 @@ void		make_rows(piece pc, int board_size, column_o *master_co)
 	int i;
 
 	y = 0;
+	reset(&pc);
 	while((n = valid(pc, board_size)) != 2)
 	{
 		if (n == 0)

@@ -12,7 +12,7 @@ int		ft_sqrt(int c)
 		++i;
 		result = i * i;
 	}
-	return(i - 1);
+	return(i-1);
 }
 
 int		coordinates_to_index(int x, int y, int width)

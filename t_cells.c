@@ -44,17 +44,22 @@ void	cell_linker(column_o *master_co, t_cell *row, piece pc)
 	{
 		if (current_co->union_type == 0 && current_co->colname.id == pc.id)
 		{
+//			printf("%c ", current_co->colname.id);
 			linker(current_co, current_cell);
 			current_cell = current_cell->R;
 		}
 		else if(current_co->union_type == 1)
 		{
-			if ((coordinates_to_index(pc.blocks[i].x, pc.blocks[i].y,
-						ft_sqrt(master_co->prev->colname.row_num))) == current_co->colname.row_num)
+			if (i < 4)
 			{
-				linker(current_co, current_cell);
-				current_cell = current_cell->R;
-				++i;
+				if ((coordinates_to_index(pc.blocks[i].x, pc.blocks[i].y,
+							ft_sqrt(master_co->prev->colname.row_num))) == current_co->colname.row_num)
+				{
+	//				printf("%d ", current_co->colname.row_num);
+					linker(current_co, current_cell);
+					current_cell = current_cell->R;
+					++i;
+				}
 			}
 		}
 		current_co = current_co->next;

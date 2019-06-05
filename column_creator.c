@@ -24,7 +24,7 @@ column_o	*make_columns_part_one(piece *arr, int size, int board_size)
 	return(master_co);
 }
 
-column_o	*part_deux(column_o *master_co, column_o *current, int board_size)
+void		part_deux(column_o *master_co, column_o *current, int board_size)
 {
 	int i;
 
@@ -40,7 +40,6 @@ column_o	*part_deux(column_o *master_co, column_o *current, int board_size)
 	}
 	current->next = master_co;
 	master_co->prev = current;
-	return (master_co);
 }
 
 void		link_list_header(column_o *master_co)
