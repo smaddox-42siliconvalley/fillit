@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/04 17:50:39 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/04 17:57:11 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/04 20:33:54 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,22 +18,16 @@ void	print_board(piece *arr, int num, int board_size, char **board)
 	int		i;
 	int		j;
 
-	/*board = (char**)malloc(sizeof(*char) * num);
-	i = 0;
-	while(i < board_size)
-	{
-		board[i] = (char*)malloc(sizeof(char) * (board_size + 1));
-		i++;
-	}
-	*/
 	i = 0;
 	cur = 'A';
-	while (i < num) // fill board with pieces
+	while (i < num)
+	// fill board with pieces
 	{
 		j = 0;
 		while (j <= 3)
 		{
-			board[arr[i].blocks[j].x - 1 / board_size][arr[i].blocks[j].x - 1 % board_size] = cur;
+			board[arr[i].blocks[j].x - 1 /
+				board_size][arr[i].blocks[j].x - 1 % board_size] = cur;
 			j++;
 		}
 		cur++;

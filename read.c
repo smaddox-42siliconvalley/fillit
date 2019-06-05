@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/03 00:06:45 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/06/04 20:29:42 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "fillit.h"
@@ -21,9 +21,9 @@ int		check_valid_tetris(char	*str, int b_read)
 	block = 0;
 	while (i < 20)
 	{
-		if(i % 5 < 4)
+		if (i % 5 < 4)
 		{
-			if(str[i] != '#' || str[i] != '.')
+			if (str[i] != '#' || str[i] != '.')
 				return (0);
 			if (str[i] == '#')
 				block++;
@@ -39,17 +39,13 @@ int		check_valid_tetris(char	*str, int b_read)
 	return (1);
 }
 
-
 // gets coords for each blocks
 piece	get_piece(char *str, char id)
 {
 	piece	s_piece;
-//	point	*blocks;  don't think this is needed
 	int		i;
 	int		j;
 	
-//	if(!(s_piece = (piecemalloc(sizeof(piece))))
-//		return (NULL);
 	s_piece.blocks = (point *)malloc(sizeof(point) * 4);
 
 	i = 0;
@@ -88,7 +84,6 @@ piece	*read_file(const int fd, int *num_pieces)
 		pieceArr[i] = get_piece(buf, id);
 		i++;
 		id++;
-
 /*		else if(check_valid_tetris(buf, b_read) == 0)
 		{
 			i = id - 'A' + '0';

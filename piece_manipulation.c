@@ -13,7 +13,7 @@ void	move_piece(piece *pc, int direction)
 			++i;
 		}
 	}
-	else if(direction == 1)
+	else if (direction == 1)
 	{
 		i = 0;
 		while (i < 4)

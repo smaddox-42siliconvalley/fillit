@@ -1,7 +1,6 @@
 #include "fillit.h"
 
-
-column_o	*init_toroid(piece *arr, int num, int board_size)
+column_o		*init_toroid(piece *arr, int num, int board_size)
 {
 	column_o	*master_co;
 	int			i;
@@ -14,7 +13,7 @@ column_o	*init_toroid(piece *arr, int num, int board_size)
 		make_rows(arr[i], board_size, master_co);
 		++i;
 	}
-	return(master_co);
+	return (master_co);
 }
 
 void		make_rows(piece pc, int board_size, column_o *master_co)
@@ -25,7 +24,7 @@ void		make_rows(piece pc, int board_size, column_o *master_co)
 
 	y = 0;
 	reset(&pc);
-	while((n = valid(pc, board_size)) != 2)
+	while ((n = valid(pc, board_size)) != 2)
 	{
 		if (n == 0)
 		{
@@ -61,4 +60,3 @@ int			valid(piece pc, int board_size)
 	}
 	return (0);
 }
-	

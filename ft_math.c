@@ -12,7 +12,7 @@ int		ft_sqrt(int c)
 		++i;
 		result = i * i;
 	}
-	return(i-1);
+	return (i - 1);
 }
 
 int		coordinates_to_index(int x, int y, int width)
@@ -35,7 +35,7 @@ int		index_to_coordinates(int i, int width, int flag)
 			return (width);
 		return (x);
 	}
-	else if(flag == 1)
+	else if (flag == 1)
 	{
 		y = i / width;
 		return (y);
