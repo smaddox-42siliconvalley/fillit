@@ -7,26 +7,23 @@ int		main(int argc, char **argv)
 	int				fd;
 	piece			*piece_arr;
 	column_o		*master_co;
-
-	board.answers = init_stack(100);
+	stack			*address_stack = init_stack(100);
+	int i = 22;
 	if (argc == 2)
 	{
 		fd = open(argv[1], O_RDONLY);
 		if ((piece_arr = read_file(fd, &num)))
 		{
-			board.size = ft_sqrt(num * 4);
+			board.size = 6; ft_sqrt(num * 4);
 			master_co = init_toroid(piece_arr, num, board.size);
-			while (!(solver(master_co, board.answers)))
-			{
-				master_co = init_toroid(piece_arr, num, ++board.size);
-			}
+			i = solver(master_co, piece_arr, address_stack);
 		}
 		else
 			ft_putstr("ERROR\n");
 	}
 	else
 		ft_putstr("usage: ./fillit file\n");
-	format_board(&board);
-	print_nboard(board.str, board.size);
+	printf("%d\n", i);
+	show_stack(address_stack);
 	return (0);
 }

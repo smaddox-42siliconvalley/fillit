@@ -3,14 +3,15 @@
 void		cover_rows(t_cell *node)
 {
 	int i;
+	t_cell *current;
 
 	i = -1;
-	node = node->L;
-	while (++i < 4)
+	current  = node->R;
+	while (current != node)
 	{
-		node->U->D = node->D;
-		node->D->U = node->U;
-		node = node->L;
+		current->U->D = current->D;
+		current->D->U = current->U;
+		current = current->R;
 	}
 }
 
@@ -22,23 +23,23 @@ void		cover_column(column_o *column)
 	column->list_header.R->L = column->list_header.L;
 	column->prev->next = column->next;
 	column->next->prev = column->prev;
-	current_cell = column->list_header.U;
+	current_cell = column->list_header.D;
 	while (current_cell->a == 0)
 	{
 		cover_rows(current_cell);
-		current_cell = current_cell->U;
+		current_cell = current_cell->D;
 	}
 }
 
 void		cover_choice(t_cell *choice)
 {
-	int i;
+	t_cell *current;
 
-	i = -1;
-	choice = choice->L;
-	while (++i < 5)
+	cover_column(choice->C);
+	current = choice->R;
+	while (current != choice)
 	{
-		cover_column(choice->C);
-		choice = choice->L;
+		cover_column(current->C);
+		current  = current->R;
 	}
 }

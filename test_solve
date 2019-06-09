@@ -1,0 +1,20 @@
+#include "fillit.h"
+
+int solver(column_o *master_co, piece *arr)
+{
+	t_cell *choice;
+	if(master_co->next->union_type == 1)
+		return(1);
+	choice =  master_co->next->list_header.D;
+	while(choice != &(master_co->next->list_header))
+	{
+		cover_choice(choice);
+		if(master_co->next->union_type == 1)
+			return(1);
+		if ((solver(master_co, arr)) == 1)
+			return(1);
+		uncover_choice(choice);
+		choice = choice->D;
+	}
+	return(0);
+}

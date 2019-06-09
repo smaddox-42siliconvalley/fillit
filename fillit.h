@@ -7,6 +7,9 @@
 #include <fcntl.h>
 #include "libft.h"
 
+struct STACK;
+typedef struct STACK stack;
+
 struct column_object;
 typedef struct column_object column_o;
 
@@ -14,6 +17,7 @@ struct							board
 {
 	int							size;
 	char						*str;
+	stack						*answers;
 };
 
 typedef struct		POINT
@@ -50,6 +54,21 @@ typedef struct		column_object
 	struct column_object		*next;
 	struct column_object		*prev;
 }					column_o;
+
+typedef struct STACK
+{
+	int top;
+	int capacity;
+	t_cell **array;
+}				stack;
+
+stack *init_stack(int size);
+int is_full(stack *address_stack);
+int is_empty(stack *address_stack);
+void push(stack *address_stack, t_cell *choice);
+t_cell *pop(stack *address_stack);
+void				mapstack(stack *address_stack, piece *arr);
+void show_stack(stack *address_stack);
 
 /*
  * *		Column Creator
@@ -105,6 +124,7 @@ void				print_piece(piece pc);
 void				print_matrix(column_o *master_co);
 void				print_columns(column_o *column);
 void				print_choice(t_cell *choice);
+void				test_covers(column_o *master_co);
 /*
  * *	read functions
  */
@@ -138,8 +158,9 @@ void			uncover_row(t_cell *node);
 /*
  * *	solver
  */
-int				solver(column_o *master, piece *arr);
+int				solver(column_o *master, stack *address_stack);
 void			choice_helper(t_cell *choice, piece *arr);
+int				validate_choice(t_cell *choice);
 
 /*
  * *	Printing Board
@@ -149,5 +170,7 @@ void	fill_board(piece *arr, int num, int board_size, char **board);
 void	print_board(char **board, int board_size, int num);
 char	**create_board(int board_size, int num);
 void	free_board(char **board, int board_size);
+void	format_board(struct board *board);
+void	print_nboard(char *str, int mod);
 #endif
 

@@ -2,15 +2,14 @@
 
 void		uncover_rows(t_cell *node)
 {
-	int i;
+	t_cell *current;
 
-	i = -1;
-	node = node->R;
-	while (++i < 4)
+	current = node->L;
+	while (current != node)
 	{
-		node->U->D = node;
-		node->D->U = node;
-		node = node->R;
+		current->U->D = current;
+		current->D->U = current;
+		current = current->L;
 	}
 }
 
@@ -22,23 +21,23 @@ void		uncover_column(column_o *column)
 	column->list_header.R->L = &(column->list_header);
 	column->prev->next = column;
 	column->next->prev = column;
-	current_cell = column->list_header.D;
+	current_cell = column->list_header.U;
 	while (current_cell->a == 0)
 	{
 		uncover_rows(current_cell);
-		current_cell = current_cell->D;
+		current_cell = current_cell->U;
 	}
 }
 
 void		uncover_choice(t_cell *choice)
 {
-	int i;
+	t_cell *current;
 
-	i = -1;
-	choice = choice->R;
-	while (++i < 5)
+	uncover_column(choice->C);
+	current  = choice->L;
+	while (current != choice)
 	{
-		uncover_column(choice->C);
-		choice = choice->R;
+		uncover_column(current->C);
+		current = current->L;
 	}
 }

@@ -30,15 +30,31 @@ void	print_matrix(column_o* master_co)
 {
 	column_o* current = master_co->next;
 	if (current == master_co)
+	{
 		printf("empty\n");
+		return;
+	}
 	int i = 0;
+	int j = 0;
 	t_cell *current_cell;
+	printf("Remaining columns: ");
+	while(current->colname.id != 'h')
+	{
+		if(current->union_type == 0)
+			printf("%c ", current->colname.id);
+		if(current->union_type == 1)
+			printf("%d ", current->colname.row_num);
+		current= current->next;
+	}
+	printf("\n---------------------------------------------------------------------------------\n");
+	current = master_co->next;
 	while(current->union_type == 0)
 	{
 		current_cell = current->list_header.D;
 		while(current_cell->a != 1)
 		{
 			i = 0;
+			printf(" | ");
 			while(i<5)
 			{
 				if(current_cell->C->union_type == 0)
@@ -49,31 +65,26 @@ void	print_matrix(column_o* master_co)
 				++i;
 			}
 			current_cell = current_cell->D;
-			printf("\n");
+			++j;
+			if (j%5==0)
+				printf("\n");
 		}
+		printf("\n---------------------------------------------------------------------------------\n");
 		current = current->next;
+		j=0;
 	}
+	printf("end\n");
 }
 
-void print_columns(column_o *column)
-{
-	int i = 0;
-	while (column->next->colname.id != 'h')
-	{
-		if (column->union_type == 1)
-			++i;
-		printf("%d %d\n", column->union_type,column->colname.id);
-		column = column->next;
-	}
-	printf("%d %d\n", column->union_type,column->colname.id);
-	printf("\n%d\n", i);
-}
-
+	
 
 void print_choice(t_cell *current_cell)
 {
 	int i;
 	i = 0;
+   	printf("choice: ");	
+	if(current_cell->a == 1)
+		printf("list_headers-> ");
 	while(i<5)
 	{
 		if(current_cell->C->union_type == 0)
@@ -84,4 +95,44 @@ void print_choice(t_cell *current_cell)
 		++i;
 	}
 	printf("\n");
-}	
+}
+
+void	test_covers(column_o *master_co)
+{
+	stack *address_stack = init_stack(100);
+	t_cell *choice;
+	choice = master_co->next->list_header.D;
+	while (1)
+	{
+
+		system("printf '\033[2J\033[3J\033[1;1H'");
+		if(!(is_empty(address_stack)))
+		{
+			printf("last ");
+			print_choice(address_stack->array[address_stack->top]);
+		}
+
+		print_matrix(master_co);
+		print_choice(choice);
+		char x = getchar();
+		switch(x)
+		{
+			case 's': choice = choice->D;
+					  break;
+			case 'w': choice = choice->U;
+					  break;
+			case 'c': cover_choice(choice);
+					  push(address_stack, choice);
+					  choice = master_co->next->list_header.D;
+					  break;
+			case 'u': uncover_choice(address_stack->array[address_stack->top]);
+					  choice = pop(address_stack);
+					  break;
+		}
+	}
+}
+
+
+
+
+
