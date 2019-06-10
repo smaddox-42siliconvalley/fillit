@@ -18,6 +18,7 @@ int		main(int argc, char **argv)
 			master_co = init_toroid(piece_arr, num, board.size);
 			while (!(solver(master_co, board.answers)))
 			{
+				//free master_co here
 				master_co = init_toroid(piece_arr, num, ++board.size);
 			}
 		}
@@ -28,5 +29,8 @@ int		main(int argc, char **argv)
 		ft_putstr("usage: ./fillit file\n");
 	format_board(&board);
 	print_nboard(board.str, board.size);
+	//free board.str
+	//free piece_arr
+	//free stack
 	return (0);
 }
