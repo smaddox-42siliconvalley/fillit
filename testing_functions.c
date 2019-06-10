@@ -19,8 +19,7 @@ void	print_piece(piece pc)
 	printf("%c ", pc.id);
 	while(j < 4)
 	{
-		//printf("(%d, %d) ", pc.blocks[j].x, pc.blocks[j].y);
-		printf("%d ", pc.blocks[j].x);	
+		printf("(%d, %d) ", pc.blocks[j].x, pc.blocks[j].y);
 		++j;
 	}
 	printf("\n");

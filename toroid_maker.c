@@ -42,6 +42,8 @@ void		make_rows(piece pc, int board_size, column_o *master_co)
 				i++;
 			}
 		}
+		if (n == 3)
+			move_piece(&pc, 0);
 	}
 }
 
@@ -52,6 +54,8 @@ int			valid(piece pc, int board_size)
 	j = 0;
 	while (j < 4)
 	{
+		if (pc.blocks[j].x < 0)
+			return (3);
 		if (pc.blocks[j].x >= board_size)
 			return (1);
 		if (pc.blocks[j].y >= board_size)

@@ -30,11 +30,12 @@ void	print_nboard(char *str, int mod)
 	i = -1;
 	while(*str)
 	{
-		if (++i % mod == 0)
+		if (++i % mod == 0 && i > 1)
 		{
 			ft_putchar('\n');
 		}
 		ft_putchar(*str);
 		str++;
 	}
+	ft_putchar('\n');
 }
