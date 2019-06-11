@@ -6,7 +6,11 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/06/11 16:47:15 by smaddox          ###   ########.fr       */
+=======
+/*   Updated: 2019/06/05 20:06:10 by dchen            ###   ########.fr       */
+>>>>>>> a5163dd5ee544f54c20c430b00026fc9d9619312
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +42,11 @@ int		check_connection(char *str, int b_read)
 }
 
 /*
+<<<<<<< HEAD
  **  checks if tetris is valid
+=======
+ *  checks if tetris is valid
+>>>>>>> a5163dd5ee544f54c20c430b00026fc9d9619312
 */
 int		check_valid_tetris(char	*str, int b_read)
 {
@@ -69,8 +77,13 @@ int		check_valid_tetris(char	*str, int b_read)
 	return (1);
 }
 
+<<<<<<< HEAD
 /* 
  * * gets coords for each blocks
+=======
+/* gets coords for each blocks
+ *
+>>>>>>> a5163dd5ee544f54c20c430b00026fc9d9619312
 */
 
 piece	get_piece(char *str, char id)
@@ -83,12 +96,24 @@ piece	get_piece(char *str, char id)
 	i = 0;
 	j = 0;
 	s_piece.id = id;
+<<<<<<< HEAD
 	while (i < 20)
 	{
 		if(str[i] == '#')
 		{
 			s_piece.blocks[j].y = i / 5;
 			s_piece.blocks[j].x = i % 5;
+=======
+	/* s_piece.placed = 0; */
+	while (i < 20)
+	{
+		if(str[i] == '#')/* removed the j == 0 */
+		{
+			s_piece.blocks[j].y = i / 5;
+	/*		printf("(%d, ", s_piece.blocks[j].x); testing   */
+			s_piece.blocks[j].x = i % 5;
+	/*		printf("%d) ", s_piece.blocks[j].y);   */
+>>>>>>> a5163dd5ee544f54c20c430b00026fc9d9619312
 			j++;
 		}
 		i++;
