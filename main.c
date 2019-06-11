@@ -8,6 +8,8 @@ int		main(int argc, char **argv)
 	piece			*piece_arr;
 	column_o		*master_co;
 
+	master_co = NULL;
+	piece_arr = NULL;
 	board.answers = init_stack(100);
 	if (argc == 2)
 	{
@@ -18,19 +20,24 @@ int		main(int argc, char **argv)
 			master_co = init_toroid(piece_arr, num, board.size);
 			while (!(solver(master_co, board.answers)))
 			{
-				//free master_co here
-				master_co = init_toroid(piece_arr, num, ++board.size);
+				cleanup(master_co);
+				master_co = init_toroid(piece_arr, num, ++(board.size));
 			}
 		}
 		else
+		{
 			ft_putstr("ERROR\n");
+			return (0);
+		}
 	}
 	else
 		ft_putstr("usage: ./fillit file\n");
 	format_board(&board);
 	print_nboard(board.str, board.size);
-	//free board.str
-	//free piece_arr
-	//free stack
+	free(board.str);
+	free(board.answers->array);
+	free(board.answers);
+	if (master_co)
+		cleanup(master_co);
 	return (0);
 }

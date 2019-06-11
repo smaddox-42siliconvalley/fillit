@@ -7,13 +7,13 @@ column_o	*make_columns_part_one(piece *arr, int size, int board_size)
 	column_o	*current;
 
 	i = 0;
-	current = (column_o*)malloc(sizeof(column_o));
+	current = make_column_o();
 	master_co = current;
 	current->union_type = 0;
 	current->colname.id = 'h';
 	while (i < size)
 	{
-		current->next = (column_o*)malloc(sizeof(column_o));
+		current->next = make_column_o();
 		current->next->prev = current;
 		current = current->next;
 		current->union_type = 0;
@@ -31,7 +31,7 @@ void		part_deux(column_o *master_co, column_o *current, int board_size)
 	i = 1;
 	while (i <= board_size * board_size)
 	{
-		current->next = (column_o*)malloc(sizeof(column_o));
+		current->next = make_column_o();
 		current->next->prev = current;
 		current = current->next;
 		current->union_type = 1;

@@ -7,11 +7,11 @@ t_cell		*generate_rows(void)
 	int		i;
 
 	i = 0;
-	first_node = (t_cell*)malloc(sizeof(t_cell));
+	first_node = make_t_cell();
 	current = first_node;
 	while (i < 4)
 	{
-		current->R = (t_cell*)malloc(sizeof(t_cell));
+		current->R = make_t_cell();
 		current->R->L = current;
 		current->a = 0;
 		current = current->R;
@@ -44,7 +44,6 @@ void		cell_linker(column_o *master_co, t_cell *row, piece pc)
 	{
 		if (current_co->union_type == 0 && current_co->colname.id == pc.id)
 		{
-		//printf("%c ", current_co->colname.id);
 			linker(current_co, current_cell);
 			current_cell = current_cell->R;
 		}
@@ -55,7 +54,6 @@ void		cell_linker(column_o *master_co, t_cell *row, piece pc)
 				if ((coordinates_to_index(pc.blocks[i].x, pc.blocks[i].y,
 				ft_sqrt(master_co->prev->colname.row_num))) == current_co->colname.row_num)
 				{
-			//printf("%d ", current_co->colname.row_num);
 					linker(current_co, current_cell);
 					current_cell = current_cell->R;
 					++i;

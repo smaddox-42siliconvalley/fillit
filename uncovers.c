@@ -17,6 +17,7 @@ void		uncover_column(column_o *column)
 {
 	t_cell *current_cell;
 
+	current_cell = NULL;
 	column->list_header.L->R = &(column->list_header);
 	column->list_header.R->L = &(column->list_header);
 	column->prev->next = column;
@@ -33,6 +34,7 @@ void		uncover_choice(t_cell *choice)
 {
 	t_cell *current;
 
+	current = NULL;
 	uncover_column(choice->C);
 	current  = choice->L;
 	while (current != choice)

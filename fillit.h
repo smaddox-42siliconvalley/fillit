@@ -138,6 +138,7 @@ piece				*read_file(const int fd, int *num_pieces);
  */
 
 void			cleanup(column_o *master_co);
+void			free_pieces(piece *arr, int num);
 
 /*
  * *	coverings
@@ -172,5 +173,11 @@ char	**create_board(int board_size, int num);
 void	free_board(char **board, int board_size);
 void	format_board(struct board *board);
 void	print_nboard(char *str, int mod);
+
+/*
+ * *	allocate shit
+ */
+t_cell		*make_t_cell(void);
+column_o	*make_column_o(void);
 #endif
 

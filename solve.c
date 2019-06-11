@@ -5,6 +5,8 @@ int		solver(column_o *master_co, stack *address_stack)
 	t_cell *choice;
 	column_o *current;
 	
+	choice = NULL;
+	current = NULL;
 	current = master_co->next;
 	choice = current->list_header.D;
 	while (choice->a == 0 )

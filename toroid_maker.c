@@ -6,6 +6,7 @@ column_o		*init_toroid(piece *arr, int num, int board_size)
 	int			i;
 
 	i = 0;
+	master_co = NULL;
 	master_co = make_columns_part_one(arr, num, board_size);
 	link_list_header(master_co);
 	while (i < num)

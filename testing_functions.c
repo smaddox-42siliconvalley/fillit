@@ -27,6 +27,11 @@ void	print_piece(piece pc)
 
 void	print_matrix(column_o* master_co)
 {
+	if (master_co == NULL)
+	{
+		printf("it gone\n");
+		return;
+	}
 	column_o* current = master_co->next;
 	if (current == master_co)
 	{
