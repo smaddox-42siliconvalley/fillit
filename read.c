@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/11 18:00:55 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/11 18:09:14 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,6 @@ piece	*read_file(const	int	fd, int	*num_pieces)
 	id = 'A';
 	i = 0;
 	buf = ft_strnew(21);
-	if ((b_read = read(fd, buf, 21)) < 20 || buf[20] != '\n')
-		return (NULL);
 	while ((b_read = read(fd, buf, 21)) >= 20)
 	{
 		if (check_valid_tetris(buf, b_read) == 0)
