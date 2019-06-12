@@ -1,5 +1,4 @@
 #include "fillit.h"
-
 int		main(int argc, char **argv)
 {
 	struct board	board;
@@ -7,7 +6,7 @@ int		main(int argc, char **argv)
 	int				fd;
 	piece			*piece_arr;
 	column_o		*master_co;
-
+	
 	master_co = NULL;
 	piece_arr = NULL;
 	board.answers = init_stack(100);
@@ -37,7 +36,6 @@ int		main(int argc, char **argv)
 	free(board.str);
 	free(board.answers->array);
 	free(board.answers);
-	if (master_co)
-		cleanup(master_co);
+	cleanup(master_co);
 	return (0);
 }

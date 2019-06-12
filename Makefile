@@ -11,5 +11,6 @@ real :
 	gcc -Wall -Wextra -Werror *.c libft.a -I fillit.h libft.h
 
 cleand :
+	rm *.o
 	rm -rf a.out*
 	rm -rf libft.h.*
