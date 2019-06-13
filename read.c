@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/11 18:09:14 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/13 16:40:45 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int		check_connection(char *str, int b_read)
 	return ((connection == 6 || connection == 8) ? 1 : 0);
 }
 
-/*
- *  checks if tetris is valid
-*/
-int		check_valid_tetris(char	*str, int b_read)
+int		check_valid_tetris(char *str, int b_read)
 {
 	int	i;
 	int block;
@@ -49,7 +46,7 @@ int		check_valid_tetris(char	*str, int b_read)
 	block = 0;
 	if (b_read < 20)
 		return (0);
-	while (i < 20)
+	while (++i < 20)
 	{
 		if (i % 5 < 4)
 		{
@@ -62,38 +59,28 @@ int		check_valid_tetris(char	*str, int b_read)
 		}
 		else if (str[i] != '\n')
 			return (0);
-		i++;
 	}
 	if (check_connection(str, b_read) == 0)
 		return (0);
-	if (b_read == 21 && str[20] != '\n' && block == 4)
-		return (1);
 	return (1);
 }
-
-/* gets coords for each blocks
- *
-*/
 
 piece	get_piece(char *str, char id)
 {
 	piece	s_piece;
 	int		i;
 	int		j;
-	
+
 	s_piece.blocks = (point *)malloc(sizeof(point) * 4);
 	i = 0;
 	j = 0;
 	s_piece.id = id;
-	/* s_piece.placed = 0; */
 	while (i < 20)
 	{
-		if(str[i] == '#')/* removed the j == 0 */
+		if (str[i] == '#')
 		{
 			s_piece.blocks[j].y = i / 5;
-	/*		printf("(%d, ", s_piece.blocks[j].x); testing   */
 			s_piece.blocks[j].x = i % 5;
-	/*		printf("%d) ", s_piece.blocks[j].y);   */
 			j++;
 		}
 		i++;
@@ -102,12 +89,12 @@ piece	get_piece(char *str, char id)
 	return (s_piece);
 }
 
-piece	*read_file(const	int	fd, int	*num_pieces)
+piece	*read_file(const int fd, int *num_pieces)
 {
-	char 	id;
+	char	id;
 	char	*buf;
 	int		b_read;
-	int 	i;
+	int		i;
 	piece	*pieceArr;
 
 	pieceArr = (piece *)malloc(sizeof(piece) * 28);

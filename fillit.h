@@ -17,6 +17,8 @@ struct							board
 {
 	int							size;
 	char						*str;
+	int							num;
+	int							fd;
 	stack						*answers;
 };
 
@@ -167,10 +169,10 @@ int				validate_choice(t_cell *choice);
  * *	Printing Board
  */
 
-void	fill_board(piece *arr, int num, int board_size, char **board);
-void	print_board(char **board, int board_size, int num);
-char	**create_board(int board_size, int num);
-void	free_board(char **board, int board_size);
+//void	fill_board(piece *arr, int num, int board_size, char **board);
+//void	print_board(char **board, int board_size, int num);
+//char	**create_board(int board_size, int num);
+//void	free_board(char **board, int board_size);
 void	format_board(struct board *board);
 void	print_nboard(char *str, int mod);
 

@@ -1,12 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   covers.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 15:47:30 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/13 15:47:31 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 void		cover_rows(t_cell *node)
 {
-	int i;
-	t_cell *current;
+	int		i;
+	t_cell	*current;
 
 	i = -1;
-	current  = node->R;
+	current = node->R;
 	while (current != node)
 	{
 		current->U->D = current->D;
@@ -40,6 +52,6 @@ void		cover_choice(t_cell *choice)
 	while (current != choice)
 	{
 		cover_column(current->C);
-		current  = current->R;
+		current = current->R;
 	}
 }

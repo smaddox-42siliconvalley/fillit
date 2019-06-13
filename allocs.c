@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   allocs.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 15:44:04 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/13 15:44:05 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
-t_cell *make_t_cell(void)
+t_cell		*make_t_cell(void)
 {
 	t_cell *new;
 
@@ -12,11 +24,10 @@ t_cell *make_t_cell(void)
 	new->D = NULL;
 	new->C = NULL;
 	new->a = 0;
-	return(new);
+	return (new);
 }
 
-
-column_o *make_column_o(void)
+column_o	*make_column_o(void)
 {
 	column_o *new;
 
@@ -30,6 +41,5 @@ column_o *make_column_o(void)
 	new->union_type = 0;
 	new->next = NULL;
 	new->prev = NULL;
-	return(new);
+	return (new);
 }
-

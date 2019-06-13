@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   clean.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 15:45:29 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/13 16:50:46 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 void	cleanup(column_o *master_co)
@@ -28,16 +40,15 @@ void	cleanup(column_o *master_co)
 	free(current);
 }
 
-
 void	free_pieces(piece *arr, int num)
 {
 	int i;
 
 	i = 0;
-	while( i < num)
+	while (i < num)
 	{
 		free(arr[i].blocks);
 		free(&arr[i++]);
 	}
 }
-	
+

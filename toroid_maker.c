@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   toroid_maker.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 15:55:55 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/13 16:10:01 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 column_o		*init_toroid(piece *arr, int num, int board_size)
@@ -17,7 +29,7 @@ column_o		*init_toroid(piece *arr, int num, int board_size)
 	return (master_co);
 }
 
-void		make_rows(piece pc, int board_size, column_o *master_co)
+void			make_rows(piece pc, int board_size, column_o *master_co)
 {
 	int n;
 	int y;
@@ -37,18 +49,15 @@ void		make_rows(piece pc, int board_size, column_o *master_co)
 			i = 0;
 			++y;
 			reset(&pc);
-			while (i < y)
-			{
+			while (i++ < y)
 				move_piece(&pc, 1);
-				i++;
-			}
 		}
 		if (n == 3)
 			move_piece(&pc, 0);
 	}
 }
 
-int			valid(piece pc, int board_size)
+int				valid(piece pc, int board_size)
 {
 	int j;
 

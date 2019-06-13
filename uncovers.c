@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   uncovers.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/13 15:56:49 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/13 15:56:50 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fillit.h"
 
 void		uncover_rows(t_cell *node)
@@ -36,7 +48,7 @@ void		uncover_choice(t_cell *choice)
 
 	current = NULL;
 	uncover_column(choice->C);
-	current  = choice->L;
+	current = choice->L;
 	while (current != choice)
 	{
 		uncover_column(current->C);
