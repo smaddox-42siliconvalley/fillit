@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:41:29 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 16:47:32 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/13 22:19:54 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 int		main(int argc, char **argv)
 {
 	struct board	board;
-	//int				num;
-	//int				fd;
 	piece			*piece_arr;
 	column_o		*master_co;
-	
-	master_co = NULL;
-	piece_arr = NULL;
+
 	board.answers = init_stack(100);
 	if (argc == 2)
 	{
@@ -38,17 +34,12 @@ int		main(int argc, char **argv)
 		}
 		else
 		{
-			ft_putstr("ERROR\n");
+			ft_putstr("error\n");
 			return (0);
 		}
 	}
 	else
 		ft_putstr("usage: ./fillit file\n");
-	format_board(&board);
-	print_nboard(board.str, board.size);
-	free(board.str);
-	free(board.answers->array);
-	free(board.answers);
-	cleanup(master_co);
+	format_board(&board, master_co);
 	return (0);
 }

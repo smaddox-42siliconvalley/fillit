@@ -173,7 +173,7 @@ int				validate_choice(t_cell *choice);
 //void	print_board(char **board, int board_size, int num);
 //char	**create_board(int board_size, int num);
 //void	free_board(char **board, int board_size);
-void	format_board(struct board *board);
+void	format_board(struct board *board, column_o *master_co);
 void	print_nboard(char *str, int mod);
 
 /*

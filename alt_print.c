@@ -6,13 +6,13 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:46:43 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 15:46:45 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/13 18:27:45 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	format_board(struct board *board)
+void	format_board(struct board *board, column_o *master_co)
 {
 	t_cell	*choice;
 	char	id;
@@ -33,6 +33,11 @@ void	format_board(struct board *board)
 			choice = choice->R;
 		}
 	}
+	print_nboard(board->str, board->size);
+	free(board->str);
+	free(board->answers->array);
+	free(board->answers);
+	cleanup(master_co);
 }
 
 void	print_nboard(char *str, int mod)

@@ -14,3 +14,4 @@ cleand :
 	rm *.o
 	rm -rf a.out*
 	rm -rf libft.h.*
+	rm fillit
