@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 22:48:21 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/14 02:26:36 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,6 @@ piece	*read_file(const int fd, int *num_pieces)
 	*num_pieces = id - 'A';
 	if (*num_pieces == 0)
 		return (NULL);
+	free(buf);
 	return (pieceArr);
 }

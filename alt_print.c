@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:46:43 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 18:27:45 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/14 17:12:32 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	format_board(struct board *board, column_o *master_co)
 		while (choice->C->union_type == 1)
 		{
 			board->str[choice->C->colname.row_num - 1] = id;
+			uncover_choice(choice);
 			choice = choice->R;
 		}
 	}

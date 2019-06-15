@@ -1,12 +1,13 @@
 i=1
 for file in $@
 do
-	../a.out "$file"  > my_log
+	../fillit "$file"  > my_log
 	~/testing/someones_fillit/fillit "$file" > actual_log
 	DIFF=$(diff my_log actual_log)
 	if [ "$DIFF" != "" ]
 	then
 		echo "test$i failed"
+		echo "$file"
 		echo "my_output"
 		cat my_log
 		echo "correct_output"

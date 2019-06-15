@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:45:29 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 18:16:51 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/14 16:16:22 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ void	free_pieces(piece *arr, int num)
 	while (i < num)
 	{
 		free(arr[i].blocks);
-		free(&arr[i++]);
+		i++;
 	}
+	free(arr);
 }
 
