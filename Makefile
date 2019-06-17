@@ -1,17 +1,18 @@
+NAME=fillit
+
+all : $(NAME)
+
 o_files:
-	gcc -c *.c  -I fillit.h libft.h
+	gcc -c *.c  -I fillit.h libft/libft.h -Wall -Wextra -Werror
 
-all : o_files 
-	gcc -o fillit *.o libft.a
+$(NAME) : o_files
+	gcc -o $(NAME) *.o libft/libft.a
 
-debug :
-	gcc -g *.c libft.a -I fillit.h libft.h
+clean :
+	rm -rf *.o
 
-real :
-	gcc -Wall -Wextra -Werror *.c libft.a -I fillit.h libft.h
+fclean : clean
+	rm -rf $(NAME)
 
-cleand :
-	rm *.o
-	rm -rf a.out*
-	rm -rf libft.h.*
-	rm fillit
+re : fclean all
+

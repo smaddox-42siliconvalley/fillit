@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:50:55 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 16:54:30 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/17 16:27:14 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	push(stack *address_stack, t_cell *choice)
 {
 	if (is_full(address_stack))
 	{
-		printf("full\n");
 		return ;
 	}
 	address_stack->array[++address_stack->top] = choice;

@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:41:29 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/14 17:24:26 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/06/17 16:52:33 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int		main(int argc, char **argv)
 	piece			*piece_arr;
 	column_o		*master_co;
 
+	master_co = NULL;	
 	board.answers = init_stack(100);
 	if (argc == 2)
 	{
