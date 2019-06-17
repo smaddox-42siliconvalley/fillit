@@ -105,6 +105,7 @@ void				reset(piece *pc);
 t_cell				*generate_rows(void);
 void				linker(column_o *current_co, t_cell *current_cell);
 void				cell_linker(column_o *master_co, t_cell *row, piece pc);
+void				link_helper(column_o *current_co, t_cell *current_cell, piece pc, int board_size);
 
 /*
  * *		toroid maker
