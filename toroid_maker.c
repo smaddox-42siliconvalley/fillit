@@ -6,15 +6,15 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:55:55 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 16:10:01 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/18 14:00:45 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-column_o		*init_toroid(piece *arr, int num, int board_size)
+t_column_o		*init_toroid(t_piece *arr, int num, int board_size)
 {
-	column_o	*master_co;
+	t_column_o	*master_co;
 	int			i;
 
 	i = 0;
@@ -29,7 +29,7 @@ column_o		*init_toroid(piece *arr, int num, int board_size)
 	return (master_co);
 }
 
-void			make_rows(piece pc, int board_size, column_o *master_co)
+void			make_rows(t_piece pc, int board_size, t_column_o *master_co)
 {
 	int n;
 	int y;
@@ -57,7 +57,7 @@ void			make_rows(piece pc, int board_size, column_o *master_co)
 	}
 }
 
-int				valid(piece pc, int board_size)
+int				valid(t_piece pc, int board_size)
 {
 	int j;
 

@@ -6,7 +6,7 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/13 15:47:30 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/13 15:47:31 by dchen            ###   ########.fr       */
+/*   Updated: 2019/06/18 15:06:53 by dchen            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,28 @@ void		cover_rows(t_cell *node)
 	t_cell	*current;
 
 	i = -1;
-	current = node->R;
+	current = node->r;
 	while (current != node)
 	{
-		current->U->D = current->D;
-		current->D->U = current->U;
-		current = current->R;
+		current->u->d = current->d;
+		current->d->u = current->u;
+		current = current->r;
 	}
 }
 
-void		cover_column(column_o *column)
+void		cover_column(t_column_o *column)
 {
 	t_cell *current_cell;
 
-	column->list_header.L->R = column->list_header.R;
-	column->list_header.R->L = column->list_header.L;
+	column->list_header.l->r = column->list_header.r;
+	column->list_header.r->l = column->list_header.l;
 	column->prev->next = column->next;
 	column->next->prev = column->prev;
-	current_cell = column->list_header.D;
+	current_cell = column->list_header.d;
 	while (current_cell->a == 0)
 	{
 		cover_rows(current_cell);
-		current_cell = current_cell->D;
+		current_cell = current_cell->d;
 	}
 }
 
@@ -47,11 +47,11 @@ void		cover_choice(t_cell *choice)
 {
 	t_cell *current;
 
-	cover_column(choice->C);
-	current = choice->R;
+	cover_column(choice->c);
+	current = choice->r;
 	while (current != choice)
 	{
-		cover_column(current->C);
-		current = current->R;
+		cover_column(current->c);
+		current = current->r;
 	}
 }
