@@ -1,153 +1,141 @@
-#ifndef	FILLIT_H
-#define FILLIT_H
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fillit.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/18 14:29:08 by dchen             #+#    #+#             */
+/*   Updated: 2019/06/18 17:01:41 by dchen            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include <string.h> 
-#include <stdlib.h>
-#include <stdio.h>
-#include <fcntl.h>
-#include "libft/libft.h"
+#ifndef FILLIT_H
+# define FILLIT_H
+# include <stdlib.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include "libft/libft.h"
 
-struct 							STACK;
-typedef struct STACK 			stack;
+struct s_column_object;
 
-struct							column_object;
-typedef struct column_object 	column_o;
-
-struct							board
+typedef struct				s_cell
 {
-	int							size;
-	char						*str;
-	int							num;
-	int							fd;
-	stack						*answers;
+	struct s_cell			*u;
+	struct s_cell			*d;
+	struct s_cell			*l;
+	struct s_cell			*r;
+	struct s_column_object	*c;
+	int						a;
+}							t_cell;
+
+typedef struct				s_column_object
+{
+	t_cell					list_header;
+	int						union_type;
+	union					u_col_name
+	{
+		char				id;
+		int					row_num;
+	}						u_colname;
+
+	struct s_column_object	*next;
+
+	struct s_column_object	*prev;
+}							t_column_o;
+
+typedef struct				s_stack
+{
+
+	int						top;
+
+	int						capacity;
+
+	t_cell					**array;
+}							t_stack;
+struct						s_board
+{
+	int						size;
+	char					*str;
+	int						num;
+	int						fd;
+	t_stack					*answers;
 };
 
-typedef struct					POINT
+struct						s_bytes
 {
-	int							x;
-	int							y;
-}								point;
+	int						last;
+	int						b_read;
+	int						i;
+};
 
-typedef struct					PIECE
+typedef struct				s_point
 {
-	char						id;
-	point						*blocks;
-}								piece;
+	int						x;
+	int						y;
+}							t_point;
 
-typedef struct					s_cell
+typedef struct				s_piece
 {
-	struct s_cell				*U;
-	struct s_cell				*D;
-	struct s_cell				*L;
-	struct s_cell				*R;
-	column_o					*C;
-	int							a;
-}								t_cell;
+	char					id;
+	t_point					*blocks;
+}							t_piece;
 
-typedef struct					column_object
-{
-	t_cell						list_header;
-	int							union_type;
-	union						col_name
-	{
-		char					id;
-		int						row_num;
-	}							colname;
-	struct column_object		*next;
-	struct column_object		*prev;
-}								column_o;
+t_stack						*init_stack(int size);
+int							is_full(t_stack *address_stack);
+int							is_empty(t_stack *address_stack);
+void						push(t_stack *address_stack, t_cell *choice);
+t_cell						*pop(t_stack *address_stack);
+void						mapstack(t_stack *address_stack, t_piece *arr);
+t_column_o					*make_columns_part_one
+							(t_piece *arr, int size, int board_size);
+void						part_deux(t_column_o *master_co,
+							t_column_o *current, int board_size);
+void						link_list_header(t_column_o *master_co);
+int							ft_sqrt(int c);
+int							coordinates_to_index(int x, int y, int width);
+int							index_to_coordinates
+							(int i, int width, int flag);
+void						move_piece(t_piece *pc, int direction);
+void						translate(t_point one, t_point *two);
+void						reset(t_piece *pc);
+t_cell						*generate_rows(void);
+void						linke
+							(t_column_o *current_co, t_cell *current_cell);
+void						cell_linker(t_column_o *master_co,
+							t_cell *row, t_piece pc);
+void						link_helper(t_column_o *current_co, t_cell
+							*current_cell, t_piece pc, int board_size);
+t_column_o					*init_toroid
+							(t_piece *arr, int num, int board_size);
+void						make_rows(t_piece pc, int board_size,
+							t_column_o *master_co);
+int							valid(t_piece pc, int board_size);
+void						print_index(t_piece pc, int size);
+void						print_piece(t_piece pc);
+void						print_matrix(t_column_o *master_co);
+void						print_columns(t_column_o *column);
+void						print_choice(t_cell *choice);
+void						test_covers(t_column_o *master_co);
+int							check_valid_tetris(char *str);
+t_piece						get_piece(char *str, char id);
+t_piece						*read_file(const int fd, int *num_pieces);
+void						cleanup(t_column_o *master_co);
+void						free_pieces(t_piece *arr, int num);
+void						cover_choice(t_cell *choice);
+void						cover_column(t_column_o *column);
+void						cover_rows(t_cell *node);
 
-typedef struct 					STACK
-{
-	int 						top;
-	int 						capacity;
-	t_cell 						**array;
-}								stack;
-
-stack 							*init_stack(int size);
-int								is_full(stack *address_stack);
-int								is_empty(stack *address_stack);
-void							push(stack *address_stack, t_cell *choice);
-t_cell							*pop(stack *address_stack);
-void							mapstack(stack *address_stack, piece *arr);
-/*
- * *		Column Creator
- */
-column_o						*make_columns_part_one(piece *arr, int size, int board_size);
-void							part_deux(column_o *master_co, column_o *current, int board_size);
-void							link_list_header(column_o *master_co);
-/*
- * *		ft_math
- */
-int								ft_sqrt(int c);
-int								coordinates_to_index(int x, int y, int width);
-int								index_to_coordinates(int i, int width, int flag);
-/*
- * *		piece_manipulation
- */
-void							move_piece(piece *pc, int direction);
-void							translate(point one, point *two);
-void							reset(piece *pc);
-/*
- * *		t_cells
- */
-t_cell							*generate_rows(void);
-void							linker(column_o *current_co, t_cell *current_cell);
-void							cell_linker(column_o *master_co, t_cell *row, piece pc);
-void							link_helper(column_o *current_co, t_cell *current_cell, piece pc, int board_size);
-/*
- * *		toroid maker
- */
-column_o						*init_toroid(piece *arr, int num, int board_size);
-void							make_rows(piece pc, int board_size, column_o *master_co);
-int								valid(piece pc, int board_size);
-/*
- * * 	testing functions
- */
-void							print_index(piece pc, int size);
-void							print_piece(piece pc);
-void							print_matrix(column_o *master_co);
-void							print_columns(column_o *column);
-void							print_choice(t_cell *choice);
-void							test_covers(column_o *master_co);
-/*
- * *	read functions
- */
-int								check_valid_tetris(char *str, int b_read);
-piece							get_piece(char *str, char id);
-piece							*read_file(const int fd, int *num_pieces);
-/*
- * *	cleanup
- */
-void							cleanup(column_o *master_co);
-void							free_pieces(piece *arr, int num);
-/*
- * *	coverings
- */
-void							cover_choice(t_cell *choice);
-void							cover_column(column_o *column);
-void							cover_rows(t_cell *node);
-
-/*
- * *	uncoverings
- */
-void							uncover_choice(t_cell *choice);
-void							uncover_column(column_o *column);
-void							uncover_row(t_cell *node);
-/*
- * *	solver
- */
-int								solver(column_o *master, stack *address_stack);
-void							choice_helper(t_cell *choice, piece *arr);
-int								validate_choice(t_cell *choice);
-/*
- * *	Printing Board
- */
-void							format_board(struct board *board, column_o *master_co);
-void							print_nboard(char *str, int mod);
-/*
- * *	allocate shit
- */
-t_cell							*make_t_cell(void);
-column_o						*make_column_o(void);
+void						uncover_choice(t_cell *choice);
+void						uncover_column(t_column_o *column);
+void						uncover_row(t_cell *node);
+int							solver(t_column_o *master,
+							t_stack *address_stack);
+void						choice_helper(t_cell *choice, t_piece *arr);
+int							validate_choice(t_cell *choice);
+void						format_board(struct s_board *board,
+							t_column_o *master_co);
+void						print_nboard(char *str, int mod);
+t_cell						*make_t_cell(void);
+t_column_o					*make_column_o(void);
 #endif
