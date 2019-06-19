@@ -1,15 +1,36 @@
 NAME=fillit
 
+CFLAGS= -Wall -Wextra -Werrors
+
+CFLAGS += -I libft/ fillit.h
+
+SRC = allocs.c				\
+	  alt_print.c			\
+	  clean.c				\
+	  column_creator.c		\
+	  covers.c				\
+	  ft_math.c				\
+	  main.c				\
+	  piece_manipulation.c	\
+	  read.c				\
+	  solve.c				\
+	  stack.c				\
+	  t_cells.c				\
+	  toroid_maker.c		\
+	  uncovers.c			
+
+OBJ=$(SRC:%.c=%.o)
+
 all : $(NAME)
 
-o_files:
-	gcc -c *.c  -I fillit.h libft/libft.h -Wall -Wextra -Werror
+$(OBJ):
+	gcc -c $(SRC) 
 
-$(NAME) : o_files
-	gcc -o $(NAME) *.o libft/libft.a
+$(NAME) : $(OBJ) 
+	gcc -o $(NAME) $(SRC) libft/libft.a
 
 clean :
-	rm -rf *.o
+	rm -rf $(OBJ) 
 
 fclean : clean
 	rm -rf $(NAME)

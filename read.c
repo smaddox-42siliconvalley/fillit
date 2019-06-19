@@ -6,13 +6,13 @@
 /*   By: dchen <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/21 14:13:04 by dchen             #+#    #+#             */
-/*   Updated: 2019/06/14 02:26:36 by smaddox          ###   ########.fr       */
+/*   Updated: 2019/06/18 16:55:49 by smaddox          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int		check_connection(char *str, int b_read)
+int		check_connection(char *str)
 {
 	int i;
 	int connection;
@@ -37,17 +37,13 @@ int		check_connection(char *str, int b_read)
 	return ((connection == 6 || connection == 8) ? 1 : 0);
 }
 
-int		check_valid_tetris(char *str, int b_read)
+int		check_valid_tetris(char *str)
 {
 	int	i;
 	int block;
-	//int dot;
 
 	i = 0;
-	//dot = 0;
 	block = 0;
-	//if (b_read < 20 && str[20] != '\n')
-	//	return (0);
 	while (++i < 20)
 	{
 		if (i % 5 < 4)
@@ -62,60 +58,59 @@ int		check_valid_tetris(char *str, int b_read)
 		else if (str[i] != '\n')
 			return (0);
 	}
-	if (b_read == 21 && str[20] != '\n')
+	if (check_connection(str) == 0)
 		return (0);
-	if (check_connection(str, b_read) == 0)
-		return (0); 
 	return (1);
 }
 
-piece	get_piece(char *str, char id)
+t_piece	get_piece(char *str, char id)
 {
-	piece	s_piece;
+	t_piece	piece;
 	int		i;
 	int		j;
 
-	s_piece.blocks = (point *)malloc(sizeof(point) * 4);
+	piece.blocks = (t_point *)malloc(sizeof(t_point) * 4);
 	i = 0;
 	j = 0;
-	s_piece.id = id;
+	piece.id = id;
 	while (i < 20)
 	{
 		if (str[i] == '#')
 		{
-			s_piece.blocks[j].y = i / 5;
-			s_piece.blocks[j].x = i % 5;
+			piece.blocks[j].y = i / 5;
+			piece.blocks[j].x = i % 5;
 			j++;
 		}
 		i++;
 	}
-	reset(&s_piece);
-	return (s_piece);
+	reset(&piece);
+	return (piece);
 }
 
-piece	*read_file(const int fd, int *num_pieces)
+t_piece	*read_file(const int fd, int *num_pieces)
 {
-	char	id;
-	char	*buf;
-	int		b_read;
-	int		i;
-	piece	*pieceArr;
+	char			id;
+	char			*buf;
+	struct s_bytes	byte;
+	t_piece			*piece_arr;
 
-	pieceArr = (piece *)malloc(sizeof(piece) * 28);
+	piece_arr = (t_piece *)malloc(sizeof(t_piece) * 28);
 	id = 'A';
-	i = 0;
+	byte.i = 0;
 	buf = ft_strnew(21);
-	while ((b_read = read(fd, buf, 21)) >= 20)
+	while ((byte.b_read = read(fd, buf, 21)) >= 20)
 	{
-		if (check_valid_tetris(buf, b_read) == 0)
+		if (check_valid_tetris(buf) == 0)
 			return (NULL);
-		pieceArr[i] = get_piece(buf, id);
-		i++;
+		piece_arr[byte.i] = get_piece(buf, id);
+		byte.i++;
 		id++;
+		byte.last = byte.b_read;
 	}
 	*num_pieces = id - 'A';
-	if (*num_pieces == 0)
+	if (*num_pieces == 0 || (byte.b_read < 20 && byte.b_read != 0)
+			|| (byte.b_read == 0 && byte.last != 20))
 		return (NULL);
 	free(buf);
-	return (pieceArr);
+	return (piece_arr);
 }
